@@ -42,7 +42,7 @@ public class DynamicArray {
      * Default constructor
      */
     public DynamicArray() {
-        this(DEFAULT_SIZE)
+        this(DEFAULT_SIZE);
     } // default constructor
 
     /** Driver/test code */
@@ -80,5 +80,71 @@ public class DynamicArray {
         test.insert("Pascal");
         test.insert("Basic");
     } // method main
+
+
+
+    public boolean contains(String target){
+        for (int i = 0; i < size; i++) {
+            if (target == null && foundation[i] == null) {
+                return true;
+            } else if (target != null && target.equals(foundation[i])) {
+                return true;
+            }
+        }
+        return false;
+    } // method contains
+
+
+
+    public String get(int index){
+        if (index >= 0 && index < size) {
+            return foundation[index];
+        }
+        return null;
+    } // method get
+
+
+
+    public String remove(int index){
+        if (index < 0 && index >= size) {
+            return null;
+        }
+        String removed = foundation[indez];
+        for (int i = index; i < size - 1; i++) {
+            foundation[i] = foundation[i + 1];
+        }
+        foundation[size - 1] = null;
+        size--;
+        return removed;
+    } // method remove
+
+
+
+    public void delete(int index){
+        if (index < 0 && index >= size) {
+            return;
+        }
+        for (int i = index; i < size - 1; i++) {
+            foundation [i] = foundation [i + 1];
+        }
+        foundation[size - 1] = null;
+        size--;
+    } // method delete
+
+
+
+    public void insert(String string){
+        if (size == foundation.length) {
+            resize();
+        }
+        foundatoin[size] = string;
+        size++;
+    } // method insert
+
+
+    private void resize(){
+        int newCapacity = foundation.length * 2;
+        foundation = Arrays.copyOf(foundation, newCapacity);
+    } // method resize
 
 } // class DynamicArray
