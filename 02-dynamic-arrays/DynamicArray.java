@@ -45,6 +45,75 @@ public class DynamicArray {
         this(DEFAULT_SIZE);
     } // default constructor
 
+
+    public boolean contains(String target) {
+        if (foundation == null) {
+            return false;
+        }
+        for (int i = 0; i < getCurrentSize; i++) {
+            if (target.equals(foundation[i])) {
+                return true;
+            }
+        }
+        return false;
+    } // method contains
+
+
+    public String get(int index) {
+        if (index < 0 || index >= getCurrentSize()) {
+            return null;
+        }
+        return foundation[index];
+    } // method get
+
+
+    public String remove(int index) {
+        if (index < 0 || index >= getCurrentSize()) {
+            return null;
+        }
+        String removed = foundation[index];
+        for (int i = index; i < size - 1; i++) {
+            foundation[i] = foundation[i + 1];
+        }
+        foundation[size - 1] = null;
+        size--;
+        return removed;
+    } // method remove
+
+
+    public void delete(int index) {
+        if (foundation == null || index < 0 || index >= size) {
+            return;
+        }
+        for (int i = index; i < size - 1; i++) {
+            foundation[i] = foundation[i + 1];
+        }
+        foundation[size - 1] = null;
+        size--;
+    } // method delete
+
+
+    public void insert(String string) {
+        if (foundation == null) {
+            foundation = new String[DEFAULT_SIZE];
+        }
+        if (size == foundation.length) {
+            resize();
+        }
+        foundation[size] = string;
+        size++;
+    } // method insert
+
+
+    private void resize() {
+        String[] newArray = new String[foundation.length * 2];
+        for (int i = 0; i < size; i++) {
+            newArray[i] = foundation[i];
+        }
+        foundation = newArray;
+    } // method resize
+
+
     /** Driver/test code */
     public static void main(String[] args) {
         final String PASS = "Pass";
@@ -80,71 +149,5 @@ public class DynamicArray {
         test.insert("Pascal");
         test.insert("Basic");
     } // method main
-
-
-
-    public boolean contains(String target){
-        for (int i = 0; i < size; i++) {
-            if (target == null && foundation[i] == null) {
-                return true;
-            } else if (target != null && target.equals(foundation[i])) {
-                return true;
-            }
-        }
-        return false;
-    } // method contains
-
-
-
-    public String get(int index){
-        if (index >= 0 && index < size) {
-            return foundation[index];
-        }
-        return null;
-    } // method get
-
-
-
-    public String remove(int index){
-        if (index < 0 && index >= size) {
-            return null;
-        }
-        String removed = foundation[indez];
-        for (int i = index; i < size - 1; i++) {
-            foundation[i] = foundation[i + 1];
-        }
-        foundation[size - 1] = null;
-        size--;
-        return removed;
-    } // method remove
-
-
-
-    public void delete(int index){
-        if (index < 0 && index >= size) {
-            return;
-        }
-        for (int i = index; i < size - 1; i++) {
-            foundation [i] = foundation [i + 1];
-        }
-        foundation[size - 1] = null;
-        size--;
-    } // method delete
-
-
-
-    public void insert(String string){
-        if (size == foundation.length) {
-            resize();
-        }
-        foundatoin[size] = string;
-        size++;
-    } // method insert
-
-
-    private void resize(){
-        int newCapacity = foundation.length * 2;
-        foundation = Arrays.copyOf(foundation, newCapacity);
-    } // method resize
 
 } // class DynamicArray
