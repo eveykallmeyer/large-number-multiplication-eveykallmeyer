@@ -19,6 +19,7 @@ public class DynamicArray {
     /** Default size for underlying array */
     private static final int DEFAULT_SIZE = 4;
 
+    // Growth factor for resize method
     private static final int GROWTH = 2;
 
     /** The underlying array for this class */
@@ -48,82 +49,73 @@ public class DynamicArray {
     } // default constructor
 
 
-
+    // Checks if target string is present within array
     public boolean contains(String target) {
 
         if (target == null || foundation == null) {
             return false;
-        }
+        } // returns false if the target or foundation is null
 
         for (String s : foundation) {
             if (target.equals(s)) {
                 return true;
             }
-        }
+        } // searches for target string in array
 
-        return false;
+        return false; // returns false if target not found in array
 
     } // method contains
 
 
+    // Finds the string at a certain index
     public String get(int index) {
+
         if (index < 0 || index >= foundation.length) {
             return null;
-        }
-        return foundation[index];
+        } // return null if index is out of bounds
+
+        return foundation[index]; // returns string at certain index
 
     } // method get
 
 
+    // returns the value in a certain posion and removes it from the array
     public String remove(int index) {
 
         if (index < 0 || index >= foundation.length) {
             return null;
-        }
+        } // returns null if index out of bounds or null
 
-        String removed = foundation[index];
+        String removed = foundation[index]; // store the string removed
         
-        int i = index;
-        while (i < foundation.length -1) {
+        for (int i = index; i < foundation.length - 1; i++) {
             foundation[i] = foundation[i + 1];
-            i++;
-        }
+        } // shift elements to remove the blank position
 
         foundation[foundation.length - 1] = null;
 
-        int newSize = foundation.length;
-        while (newSize > 0 && foundation[newSize - 1] == null) {
-            newSize--;
-        }
-
-        if (newSize < foundation.length) {
-            String[] newFoundation = new String[newSize];
-            for (int j = 0; j < newSize; j++) {
-                newFoundation[j] = foundation[j];
-            }
-            foundation = newFoundation;
-        }
-
-        return removed;
+        return removed; // return removed position
 
     } // method remove
 
 
+    // removes value in a certain position
     public void delete(int index) {
 
         if (index < 0 || index >= foundation.length) {
             return;
-        }
+        } // retun if out of bounds
 
         for (int i = index; i < foundation.length - 1; i++) {
             foundation[i] = foundation[i + 1];
-        }
+        } // shift elements
 
-        foundation[foundation.length - 1] = null;
+        foundation[foundation.length - 1] = null; // set last element to null
 
     } // method delete
 
 
+    // adds string to array, overcoming the fixed size of the foundation array
     public void insert(String string) {
         
         boolean inserted = false;
@@ -135,24 +127,26 @@ public class DynamicArray {
                 inserted = true;
             }
             i++;        
-        }
+        } // find first available null value and replace it with string
 
         if (!inserted) {
             resize();
             insert(string);
-        }
+        } // resize array if no null values found and insert string
 
     } // method insert
 
 
+    // increases the size of the array to accomodate additional strings inserted
     private void resize() {
         
-        String[] newFoundation = new String[foundation.length * GROWTH];
+        String[] newFoundation = new String[foundation.length * GROWTH]; // create a new, larger array
+
         for (int i = 0; i< foundation.length; i++) {
             newFoundation[i] = foundation[i];
-        }
+        } // copy old array into new array
 
-        foundation = newFoundation;
+        foundation = newFoundation; // update original array to new array
 
     } // method resize
 
