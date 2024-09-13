@@ -79,7 +79,10 @@ public class DynamicArray {
     } // method get
 
 
-    // returns the value in a certain posion and removes it from the array
+
+
+
+    // returns the value in a certain position and removes it from the array
     public String remove(int index) {
 
         if (index < 0 || index >= foundation.length) {
@@ -87,16 +90,18 @@ public class DynamicArray {
         } // returns null if index out of bounds or null
 
         String removed = foundation[index]; // store the string removed
-        
-        for (int i = index; i < foundation.length - 1; i++) {
-            foundation[i] = foundation[i + 1];
-        } // shift elements to remove the blank position
 
-        foundation[foundation.length - 1] = null;
+        if (index >= 0 && index < foundation.length) {
+            foundation[index] = removed;
+        }
 
-        return removed; // return removed position
+        return removed; // return removed position as null
 
     } // method remove
+
+
+
+
 
 
     // removes value in a certain position
