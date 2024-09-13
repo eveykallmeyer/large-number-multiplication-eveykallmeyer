@@ -19,8 +19,12 @@ public class DynamicArray {
     /** Default size for underlying array */
     private static final int DEFAULT_SIZE = 4;
 
+    private static final int GROWTH = 2;
+
     /** The underlying array for this class */
     private String[] foundation;
+
+
 
     /**
      * Full constructor. Initializes the underlying array to the specified size. The
@@ -38,79 +42,118 @@ public class DynamicArray {
         this.foundation = data;
     } // array-based constructor
 
-    /**
-     * Default constructor
-     */
+    /** Default constructor */
     public DynamicArray() {
         this(DEFAULT_SIZE);
     } // default constructor
 
 
+
     public boolean contains(String target) {
-        if (foundation == null) {
+
+        if (target == null || foundation == null) {
             return false;
         }
-        for (int i = 0; i < getCurrentSize; i++) {
-            if (target.equals(foundation[i])) {
+
+        for (String s : foundation) {
+            if (target.equals(s)) {
                 return true;
             }
         }
+
         return false;
+
     } // method contains
 
 
     public String get(int index) {
-        if (index < 0 || index >= getCurrentSize()) {
+        if (index < 0 || index >= foundation.length) {
             return null;
         }
         return foundation[index];
+
     } // method get
 
 
     public String remove(int index) {
-        if (index < 0 || index >= getCurrentSize()) {
+
+        if (index < 0 || index >= foundation.length) {
             return null;
         }
+
         String removed = foundation[index];
-        for (int i = index; i < size - 1; i++) {
+        
+        int i = index;
+        while (i < foundation.length -1) {
             foundation[i] = foundation[i + 1];
+            i++;
         }
-        foundation[size - 1] = null;
-        size--;
+
+        foundation[foundation.length - 1] = null;
+
+        int newSize = foundation.length;
+        while (newSize > 0 && foundation[newSize - 1] == null) {
+            newSize--;
+        }
+
+        if (newSize < foundation.length) {
+            String[] newFoundation = new String[newSize];
+            for (int j = 0; j < newSize; j++) {
+                newFoundation[j] = foundation[j];
+            }
+            foundation = newFoundation;
+        }
+
         return removed;
+
     } // method remove
 
 
     public void delete(int index) {
-        if (foundation == null || index < 0 || index >= size) {
+
+        if (index < 0 || index >= foundation.length) {
             return;
         }
-        for (int i = index; i < size - 1; i++) {
+
+        for (int i = index; i < foundation.length - 1; i++) {
             foundation[i] = foundation[i + 1];
         }
-        foundation[size - 1] = null;
-        size--;
+
+        foundation[foundation.length - 1] = null;
+
     } // method delete
 
 
     public void insert(String string) {
-        if (foundation == null) {
-            foundation = new String[DEFAULT_SIZE];
+        
+        boolean inserted = false;
+        int i = 0;
+        
+        while (i < foundation.length && !inserted) {
+            if (foundation[i] == null) {
+                foundation[i] = string;
+                inserted = true;
+            }
+            i++;        
         }
-        if (size == foundation.length) {
+
+        if (!inserted) {
             resize();
+            insert(string);
         }
-        foundation[size] = string;
-        size++;
+
     } // method insert
 
 
     private void resize() {
-        String[] newArray = new String[foundation.length * 2];
-        for (int i = 0; i < size; i++) {
-            newArray[i] = foundation[i];
+        
+        String[] newFoundation = new String[foundation.length * GROWTH];
+        for (int i = 0; i< foundation.length; i++) {
+            newFoundation[i] = foundation[i];
         }
-        foundation = newArray;
+
+        foundation = newFoundation;
+
     } // method resize
 
 
