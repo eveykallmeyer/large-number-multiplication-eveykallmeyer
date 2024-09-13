@@ -79,9 +79,6 @@ public class DynamicArray {
     } // method get
 
 
-
-
-
     // returns the value in a certain position and removes it from the array
     public String remove(int index) {
 
@@ -98,9 +95,6 @@ public class DynamicArray {
         return removed; // return removed position as null
 
     } // method remove
-
-
-
 
 
 
