@@ -187,6 +187,38 @@ public class DynamicArray {
         }
     } // method insert
 
+
+    public String toString() {
+        String result = "The following are coding languages: ";
+        for (int i = 0; i < occupancy; i++) {
+            result += this.foundation[i];
+            if (i < occupancy - 1) {
+                result += ", ";
+            }
+        }
+        return result;
+    }
+
+    public int index(String string) {
+        if (string == null || this.foundation == null) {
+            return -1;
+        }
+        for (int i = 0; i < this.occupancy; i++) {
+            if (string.equals(this.foundation[i])) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public double usage() {
+        if (this.foundation == null || this.foundation.length == 0) {
+            return 0.00;
+        }
+        double percentage = (double) this.occupancy / this.foundation.length;
+        return Math.round(percentage * 100.0) / 100.0; 
+    }
+
     /** Driver/test code */
     public static void main(String[] args) {
         final String PASS = "Pass";
