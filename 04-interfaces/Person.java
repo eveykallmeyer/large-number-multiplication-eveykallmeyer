@@ -70,8 +70,10 @@ public class Person implements Comparable<Person>, SillyActions {
      * Implements the SillyActions interface.
      * 
      */
+
+    private static final Random random = new Random();
+
     public void makeRandomSound() {
-        Random random = new Random();
         int index = random.nextInt(PoemWords.words.length);
         String randomSound = PoemWords.words[index];
         System.out.println(randomSound);
@@ -80,7 +82,6 @@ public class Person implements Comparable<Person>, SillyActions {
     public void performSillyDance() {
         String[] danceSteps = {"left", "right", "backwards", "forwards"};
         int numberOfSteps = 5;
-        Random random = new Random();
         System.out.println("Performing a silly dance:");
         for (int i = 0; i < numberOfSteps; i++) {
             int index = random.nextInt(danceSteps.length);
@@ -92,7 +93,6 @@ public class Person implements Comparable<Person>, SillyActions {
     public String reciteAlphabetBackwards() {
         String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         StringBuilder alphabetBackwards = new StringBuilder(alphabet).reverse();
-        Random random = new Random();
         int forgottenLetterIndex = random.nextInt(alphabetBackwards.length());
         StringBuilder forgottenAlphabetBackwards = new StringBuilder();
         for (int i = 0; i< alphabetBackwards.length(); i++) {
@@ -105,12 +105,14 @@ public class Person implements Comparable<Person>, SillyActions {
 
     public void countToTenWeirdly() {
         int[] numbersToTen = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-        Random random = new Random();
         int forgottenNumberIndex = random.nextInt(10);
         System.out.print("Counting to ten weirdly: ");
         for (int i = 0; i < numbersToTen.length; i++) {
             if (i != forgottenNumberIndex) {
-                System.out.println(numbersToTen[i] + (i < numbersToTen.length - 1? ", " : ""));
+                System.out.print(numbersToTen[i]);
+                if (i < numbersToTen.length - 1) {
+                    System.out.print(", ");
+                }
             }
         }
         System.out.println();
@@ -119,7 +121,6 @@ public class Person implements Comparable<Person>, SillyActions {
     public String createWhimsicalPoem(String topic) {
         int poemDefaultLength = 5;
         StringBuilder whimsicalPoem = new StringBuilder();
-        Random random = new Random();
         whimsicalPoem.append(topic).append(", ");
         for (int i = 0; i < poemDefaultLength; i++) {
             int nextWordIndex = random.nextInt(PoemWords.words.length);
@@ -138,7 +139,6 @@ public class Person implements Comparable<Person>, SillyActions {
         int[] lotteryNumbers = new int[lotteryDefaultLength];
         int count = 0;
         while (count < lotteryDefaultLength) {
-            Random random = new Random();
             int currentNumber = random.nextInt(numberOptions);
             if (!selectedNumbers[currentNumber]) {
                 selectedNumbers[currentNumber] = true;
@@ -155,8 +155,7 @@ public class Person implements Comparable<Person>, SillyActions {
         }
         System.out.println();
     }
-
-    public static void main(String[] args) {
+    public static void main(String[] args){
         Person p1 = new Person("Evey", "Kallmeyer", 2003);
         Person p2 = new Person("Cali", "Curro", 2003);
         Person p3 = new Person("Lucy", "Hamilton", 2002);
@@ -171,20 +170,13 @@ public class Person implements Comparable<Person>, SillyActions {
         System.out.println(p5);
         System.out.println(p6);
 
-        System.out.println("Making a random sound: ");
+        System.out.println("Age comparison between Evey and Lucy: " + p1.compareTo(p3));
+
         p1.makeRandomSound();
-
-        System.out.println("Performing a silly dance: ");
         p2.performSillyDance();
-
         System.out.println("Reciting the alphabet incorrectly: " + p3.reciteAlphabetBackwards());
-        
-        System.out.println("Counting to ten incorrectly: ");
         p4.countToTenWeirdly();
-
-        System.out.println("Creating a poem: " + p5.createWhimsicalPoem("Earth"));
-        
-        System.out.println("Winning the lottery: ");
+        System.out.println("Creating a whimsical poem: " + p5.createWhimsicalPoem("Dreams"));
         p6.winStateLottery();
     }
 }
