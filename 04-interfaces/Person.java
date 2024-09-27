@@ -155,7 +155,9 @@ public class Person implements Comparable<Person>, SillyActions {
         }
         System.out.println();
     }
-    public static void main(String[] args){
+    public static void main(String[] args) {
+
+        //create Person objects
         Person p1 = new Person("Evey", "Kallmeyer", 2003);
         Person p2 = new Person("Cali", "Curro", 2003);
         Person p3 = new Person("Lucy", "Hamilton", 2002);
@@ -163,6 +165,7 @@ public class Person implements Comparable<Person>, SillyActions {
         Person p5 = new Person("Rachel", "Krzesinski", 2002);
         Person p6 = new Person("Stephanie", "Zayed", 2003);
 
+        //print Person objects
         System.out.println(p1);
         System.out.println(p2);
         System.out.println(p3);
@@ -170,15 +173,17 @@ public class Person implements Comparable<Person>, SillyActions {
         System.out.println(p5);
         System.out.println(p6);
 
+        //test compareTo method
         System.out.println("Age comparison between Evey and Lucy: " + p1.compareTo(p3));
 
+        //test SillyActions interface methods
         p1.makeRandomSound();
         p2.performSillyDance();
         System.out.println("Reciting the alphabet incorrectly: " + p3.reciteAlphabetBackwards());
         p4.countToTenWeirdly();
         System.out.println("Creating a whimsical poem: " + p5.createWhimsicalPoem("Dreams"));
         p6.winStateLottery();
-    }
+    } // method main
 }
 
 
