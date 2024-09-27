@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public class Person implements Comparable<Person>, SillyActions {
 
     private static final String DEFAULT_LAST_NAME = "LNU";
@@ -69,7 +71,8 @@ public class Person implements Comparable<Person>, SillyActions {
      * 
      */
     public void makeRandomSound() {
-        int index = (int) (Math.random() * PoemWords.words.length);
+        Random random = new Random();
+        int index = random.nextInt(PoemWords.words.length);
         String randomSound = PoemWords.words[index];
         System.out.println(randomSound);
     }
@@ -77,10 +80,11 @@ public class Person implements Comparable<Person>, SillyActions {
     public void performSillyDance() {
         String[] danceSteps = {"left", "right", "backwards", "forwards"};
         int numberOfSteps = 5;
-        System.out.print("Dance Steps: ");
+        Random random = new Random();
+        System.out.println("Performing a silly dance:");
         for (int i = 0; i < numberOfSteps; i++) {
-            int index = (int) (Math.random() * danceSteps.length);
-            System.out.println(danceSteps[index] + (i < numberOfSteps - 1? ", " : ""));
+            int index = random.nextInt(danceSteps.length);
+            System.out.print(danceSteps[index] +  ", ");
         }
         System.out.println();
     }
@@ -88,7 +92,8 @@ public class Person implements Comparable<Person>, SillyActions {
     public String reciteAlphabetBackwards() {
         String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         StringBuilder alphabetBackwards = new StringBuilder(alphabet).reverse();
-        int forgottenLetterIndex = (int) (Math.random() * alphabetBackwards.length());
+        Random random = new Random();
+        int forgottenLetterIndex = random.nextInt(alphabetBackwards.length());
         StringBuilder forgottenAlphabetBackwards = new StringBuilder();
         for (int i = 0; i< alphabetBackwards.length(); i++) {
             if (i != forgottenLetterIndex) {
@@ -100,7 +105,8 @@ public class Person implements Comparable<Person>, SillyActions {
 
     public void countToTenWeirdly() {
         int[] numbersToTen = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-        int forgottenNumberIndex = (int) (Math.random() * numbersToTen.length);
+        Random random = new Random();
+        int forgottenNumberIndex = random.nextInt(10);
         System.out.print("Counting to ten weirdly: ");
         for (int i = 0; i < numbersToTen.length; i++) {
             if (i != forgottenNumberIndex) {
@@ -113,9 +119,10 @@ public class Person implements Comparable<Person>, SillyActions {
     public String createWhimsicalPoem(String topic) {
         int poemDefaultLength = 5;
         StringBuilder whimsicalPoem = new StringBuilder();
+        Random random = new Random();
         whimsicalPoem.append(topic).append(", ");
         for (int i = 0; i < poemDefaultLength; i++) {
-            int nextWordIndex = (int) (Math.random() * PoemWords.words.length);
+            int nextWordIndex = random.nextInt(PoemWords.words.length);
             whimsicalPoem.append(PoemWords.words[nextWordIndex]);
             if (i < poemDefaultLength - 1) {
                 whimsicalPoem.append(", ");
@@ -131,7 +138,8 @@ public class Person implements Comparable<Person>, SillyActions {
         int[] lotteryNumbers = new int[lotteryDefaultLength];
         int count = 0;
         while (count < lotteryDefaultLength) {
-            int currentNumber = (int) (Math.random() * numberOptions);
+            Random random = new Random();
+            int currentNumber = random.nextInt(numberOptions);
             if (!selectedNumbers[currentNumber]) {
                 selectedNumbers[currentNumber] = true;
                 lotteryNumbers[count] = currentNumber + 1;
