@@ -19,8 +19,13 @@ public class DynamicArray {
     /** Default size for underlying array */
     private static final int DEFAULT_SIZE = 4;
 
+    // Growth factor for resize method
+    private static final int GROWTH = 2;
+
     /** The underlying array for this class */
     private String[] foundation;
+
+
 
     /**
      * Full constructor. Initializes the underlying array to the specified size. The
@@ -38,79 +43,110 @@ public class DynamicArray {
         this.foundation = data;
     } // array-based constructor
 
-    /**
-     * Default constructor
-     */
+    /** Default constructor */
     public DynamicArray() {
         this(DEFAULT_SIZE);
     } // default constructor
 
 
+    // Checks if target string is present within array
     public boolean contains(String target) {
-        if (foundation == null) {
+
+        if (target == null || foundation == null) {
             return false;
-        }
-        for (int i = 0; i < getCurrentSize; i++) {
-            if (target.equals(foundation[i])) {
+        } // returns false if the target or foundation is null
+
+        for (String s : foundation) {
+            if (target.equals(s)) {
                 return true;
             }
-        }
-        return false;
+        } // searches for target string in array
+
+        return false; // returns false if target not found in array
+
     } // method contains
 
 
+    // Finds the string at a certain index
     public String get(int index) {
-        if (index < 0 || index >= getCurrentSize()) {
+
+        if (index < 0 || index >= foundation.length) {
             return null;
-        }
-        return foundation[index];
+        } // return null if index is out of bounds
+
+        return foundation[index]; // returns string at certain index
+
     } // method get
 
 
+    // returns the value in a certain position and removes it from the array
     public String remove(int index) {
-        if (index < 0 || index >= getCurrentSize()) {
+
+        if (index < 0 || index >= foundation.length) {
             return null;
+        } // returns null if index out of bounds or null
+
+        String removed = foundation[index]; // store the string removed
+
+        if (index >= 0 && index < foundation.length) {
+            foundation[index] = removed;
         }
-        String removed = foundation[index];
-        for (int i = index; i < size - 1; i++) {
-            foundation[i] = foundation[i + 1];
-        }
-        foundation[size - 1] = null;
-        size--;
-        return removed;
+
+        return removed; // return removed position as null
+
     } // method remove
 
 
+
+    // removes value in a certain position
     public void delete(int index) {
-        if (foundation == null || index < 0 || index >= size) {
+
+        if (index < 0 || index >= foundation.length) {
             return;
-        }
-        for (int i = index; i < size - 1; i++) {
+        } // retun if out of bounds
+
+        for (int i = index; i < foundation.length - 1; i++) {
             foundation[i] = foundation[i + 1];
-        }
-        foundation[size - 1] = null;
-        size--;
+        } // shift elements
+
+        foundation[foundation.length - 1] = null; // set last element to null
+
     } // method delete
 
 
+    // adds string to array, overcoming the fixed size of the foundation array
     public void insert(String string) {
-        if (foundation == null) {
-            foundation = new String[DEFAULT_SIZE];
-        }
-        if (size == foundation.length) {
+        
+        boolean inserted = false;
+        int i = 0;
+        
+        while (i < foundation.length && !inserted) {
+            if (foundation[i] == null) {
+                foundation[i] = string;
+                inserted = true;
+            }
+            i++;        
+        } // find first available null value and replace it with string
+
+        if (!inserted) {
             resize();
-        }
-        foundation[size] = string;
-        size++;
+            insert(string);
+        } // resize array if no null values found and insert string
+
     } // method insert
 
 
+    // increases the size of the array to accomodate additional strings inserted
     private void resize() {
-        String[] newArray = new String[foundation.length * 2];
-        for (int i = 0; i < size; i++) {
-            newArray[i] = foundation[i];
-        }
-        foundation = newArray;
+        
+        String[] newFoundation = new String[foundation.length * GROWTH]; // create a new, larger array
+
+        for (int i = 0; i< foundation.length; i++) {
+            newFoundation[i] = foundation[i];
+        } // copy old array into new array
+
+        foundation = newFoundation; // update original array to new array
+
     } // method resize
 
 
@@ -133,7 +169,7 @@ public class DynamicArray {
         String testGet = (test.get(0).equals(testData[0])) ? PASS : FAIL;
         String testGetOutOfBounds = (test.get(testData.length + 1) == null) ? PASS : FAIL;
         String testRemove = (testData[1].equals(test.remove(1))) ? PASS : FAIL;
-        String testRemoveNull = (test.remove(1) == null) ? PASS : FAIL;
+        String testRemoveNull = (tset.remove(1) == null) ? PASS : FAIL;
         String testRemoveOutOfBounds = (test.remove(testData.length + 1) == null) ? PASS : FAIL;
         System.out.printf("\nTest for contains(null): ............... %s", testContainsNullTarget);
         System.out.printf("\nTest for contains on null foundation: .. %s", testContainsEmptyData);

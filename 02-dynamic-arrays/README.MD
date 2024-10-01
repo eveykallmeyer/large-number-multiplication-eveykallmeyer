@@ -36,7 +36,7 @@ Except for the contents of these two methods, you cannot modify the code provide
 
 Your code must be in full compliance with the [Programmer's Pact](../misc/ProgrammerPact.pdf). You may not import any package except of `Arrays` and only to use ``Arrays.toString`` (not actually needed for this assignment). Also you may not use any `System` utilities except for `System.out` print statetements.
 
-Once you have the specified methods working properly, the code will compile and execute a few tests as shown below. (As of 9/9/23 there are three new tests conducted for the `remove()` method.)
+Once you have the specified methods working properly, the code will compile and execute a few tests as shown below. 
 
 ```
 Test for contains(null): ............... Pass
@@ -50,6 +50,13 @@ Test for get(out of bounds): ........... Pass
 Test for remove(1): .................... Pass
 Test for remove(null): ................. Pass
 Test for remove(out of bounds): ........ Pass
+```
+
+There are two more lines in `DynamicArray.main`, to validate your `insert` and `resize` methods:
+```java
+// If all is good, these two statemets will not crash the program
+test.insert("Pascal");
+test.insert("Basic");
 ```
 
 ## Reading material
