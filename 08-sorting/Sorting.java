@@ -139,28 +139,31 @@ public class Sorting {
      * @param 
      * @param 
      */
-    static void experiment() {
-        int DOUBLE_FACTOR = 2;
-        for (int size = minsize; size <= maxSize; size *= DOUBLE_FACTOR) {
-            int[] insertionArray = randomArray(size, minValue, maxValue);
-            int[] mergeArary = randomArray(size, minValue, maxValue);
-            long insertionStartTime = System.nanoTime();
+    static void experiment(int minSize, int maxSize, int minValue, int maxValue) {
+        final int DOUBLE_FACTOR = 2;
+        for (int size = minSize; size <= maxSize; size *= DOUBLE_FACTOR) {
+            int[] mergeArray = randomArray(size, minValue, maxValue);
             long mergeStartTime = System.nanoTime();
-            insertionSort(insertionArray);
             mergeSort(mergeArray);
-            long insertionEndTime = System.nanoTime();
             long mergeEndTime = System.nanoTime();
-            long insertionTime = insertionWndTime - insertionStartTime;
             long mergeTime = mergeEndTime - mergeStartTime;
+            
+            int[] insertionArray = randomArray(size, minValue, maxValue);
+            long insertionStartTime = System.nanoTime();
+            insertionSort(insertionArray);
+            long insertionEndTime = System.nanoTime();
+            long insertionTime = insertionEndTime - insertionStartTime;
 
-            System.out.println("Array Size: %d\nInsertion Sort Time to Execute: %d\nMerge Sort Time to Execute: %d", size, insertionTime, mergeTime);
+            System.out.printf("Array Size: %d\nMerge Sort Time to Execute: %d\nInsertion Sort Time to Execute: %d", size, insertionTime, mergeTime);
         }
 
         public static void main(String[] args) {
             int minSize = 2;
-            int maxSize = 4096
-            int minValue = 0
-            int maxValue 
+            int maxSize = 4096;
+            int minValue = 0;
+            int maxValue = 100;
+
+            experiment(minSize, maxSize, minValue, maxValue);
         }
     }
 
