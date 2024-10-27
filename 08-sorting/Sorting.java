@@ -115,7 +115,7 @@ public class Sorting {
     } // method merge
 
     /**
-     * Crates an array and populates it with random values
+     * Creates an array and populates it with random values
      * 
      * @param size     size of array of create
      * @param minValue smallest value in the array
@@ -131,5 +131,37 @@ public class Sorting {
         }
         return randArr;
     } // method randomArray;
+
+    /**
+     * Measures the execution time for the insertSort and mergeSort methods
+     * 
+     * @param
+     * @param 
+     * @param 
+     */
+    static void experiment() {
+        int DOUBLE_FACTOR = 2;
+        for (int size = minsize; size <= maxSize; size *= DOUBLE_FACTOR) {
+            int[] insertionArray = randomArray(size, minValue, maxValue);
+            int[] mergeArary = randomArray(size, minValue, maxValue);
+            long insertionStartTime = System.nanoTime();
+            long mergeStartTime = System.nanoTime();
+            insertionSort(insertionArray);
+            mergeSort(mergeArray);
+            long insertionEndTime = System.nanoTime();
+            long mergeEndTime = System.nanoTime();
+            long insertionTime = insertionWndTime - insertionStartTime;
+            long mergeTime = mergeEndTime - mergeStartTime;
+
+            System.out.println("Array Size: %d\nInsertion Sort Time to Execute: %d\nMerge Sort Time to Execute: %d", size, insertionTime, mergeTime);
+        }
+
+        public static void main(String[] args) {
+            int minSize = 2;
+            int maxSize = 4096
+            int minValue = 0
+            int maxValue 
+        }
+    }
 
 } // class Sorting
