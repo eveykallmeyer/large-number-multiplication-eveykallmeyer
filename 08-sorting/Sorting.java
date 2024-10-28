@@ -134,21 +134,6 @@ public class Sorting {
     } // method randomArray;
 
     /**
-     * Shuffles an array's elements
-     * 
-     * @param arr the array to shuffle
-     */
-    static void shuffle(int[] arr) {
-        Random rand = new Random();
-        for (int i = arr.length - 1; i > 0; i--) {
-            int j = rand.nextInt(i + 1);
-            int temp = arr[i];
-            arr[i] = arr[j];
-            arr[j] = temp;
-        }
-    }
-
-    /**
      * Measures the execution time for the insertSort and mergeSort methods
      * 
      * @param minSize  the minimum size of the array to create
@@ -163,15 +148,15 @@ public class Sorting {
             // create the array used in the experiment
             int[] experimentArray = randomArray(size, minValue, maxValue);
 
+            int[] mergeArray = Arrays.copyOf(experimentArray, experimentArray.length); // create a copy of experimentArray to sort
             long mergeStartTime = System.nanoTime(); // log when mergeSort has begun sorting
-            mergeSort(experimentArray); // execute mergeSort
+            mergeSort(mergeArray); // execute mergeSort
             long mergeEndTime = System.nanoTime(); // log when mergeSort has finished sorting
             long mergeTime = mergeEndTime - mergeStartTime; // calculate the execution time for mergeSort
 
-            shuffle(experimentArray); // shuffle the array back to its normal order
-
+            int[] insertionArray = Arrays.copyOf(experimentArray, experimentArray.length); // create a copy of experimentArray to sort
             long insertionStartTime = System.nanoTime(); // log when insertionSort has begun sorting
-            insertionSort(experimentArray); // execute insertionSort
+            insertionSort(insertionArray); // execute insertionSort
             long insertionEndTime = System.nanoTime(); // log when insertion sort has finished sorting
             long insertionTime = insertionEndTime - insertionStartTime; // calculate the execution time for insertionSort
 
