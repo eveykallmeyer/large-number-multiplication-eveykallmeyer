@@ -154,17 +154,17 @@ public class Sorting {
             long insertionEndTime = System.nanoTime();
             long insertionTime = insertionEndTime - insertionStartTime;
 
-            System.out.printf("Array Size: %d\nMerge Sort Time to Execute: %d\nInsertion Sort Time to Execute: %d", size, insertionTime, mergeTime);
+            System.out.printf("Array Size: %d\nMerge Sort Time to Execute: %d\nInsertion Sort Time to Execute: %d\n\n", size, insertionTime, mergeTime);
         }
+    }
 
-        public static void main(String[] args) {
-            int minSize = 2;
-            int maxSize = 4096;
-            int minValue = 0;
-            int maxValue = 100;
+    public static void main(String[] args) {
+        int minSize = 2;
+        int maxSize = 4096;
+        int minValue = 0;
+        int maxValue = 100;
 
-            experiment(minSize, maxSize, minValue, maxValue);
-        }
+        experiment(minSize, maxSize, minValue, maxValue);
     }
 
 } // class Sorting
