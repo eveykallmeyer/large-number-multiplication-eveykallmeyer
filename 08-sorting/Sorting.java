@@ -1,4 +1,5 @@
 import java.util.Random;
+import java.util.Arrays;
 
 public class Sorting {
 
@@ -133,27 +134,48 @@ public class Sorting {
     } // method randomArray;
 
     /**
+     * Shuffles an array's elements
+     * 
+     * @param arr the array to shuffle
+     */
+    static void shuffle(int[] arr) {
+        Random rand = new Random();
+        for (int i = arr.length - 1; i > 0; i--) {
+            int j = rand.nextInt(i + 1);
+            int temp = arr[i];
+            arr[i] = arr[j];
+            arr[j] = temp;
+        }
+    }
+
+    /**
      * Measures the execution time for the insertSort and mergeSort methods
      * 
-     * @param
-     * @param 
-     * @param 
+     * @param minSize  the minimum size of the array to create
+     * @param maxSize  the maximum size of the array to create
+     * @param minValue smallest value in the array
+     * @param maxValue largest value in the array
      */
     static void experiment(int minSize, int maxSize, int minValue, int maxValue) {
         final int DOUBLE_FACTOR = 2;
         for (int size = minSize; size <= maxSize; size *= DOUBLE_FACTOR) {
-            int[] mergeArray = randomArray(size, minValue, maxValue);
-            long mergeStartTime = System.nanoTime();
-            mergeSort(mergeArray);
-            long mergeEndTime = System.nanoTime();
-            long mergeTime = mergeEndTime - mergeStartTime;
             
-            int[] insertionArray = randomArray(size, minValue, maxValue);
-            long insertionStartTime = System.nanoTime();
-            insertionSort(insertionArray);
-            long insertionEndTime = System.nanoTime();
-            long insertionTime = insertionEndTime - insertionStartTime;
+            // create the array used in the experiment
+            int[] experimentArray = randomArray(size, minValue, maxValue);
 
+            long mergeStartTime = System.nanoTime(); // log when mergeSort has begun sorting
+            mergeSort(experimentArray); // execute mergeSort
+            long mergeEndTime = System.nanoTime(); // log when mergeSort has finished sorting
+            long mergeTime = mergeEndTime - mergeStartTime; // calculate the execution time for mergeSort
+
+            shuffle(experimentArray); // shuffle the array back to its normal order
+
+            long insertionStartTime = System.nanoTime(); // log when insertionSort has begun sorting
+            insertionSort(experimentArray); // execute insertionSort
+            long insertionEndTime = System.nanoTime(); // log when insertion sort has finished sorting
+            long insertionTime = insertionEndTime - insertionStartTime; // calculate the execution time for insertionSort
+
+            // print results of experiment
             System.out.printf("Array Size: %d\nMerge Sort Time to Execute: %d\nInsertion Sort Time to Execute: %d\n\n", size, insertionTime, mergeTime);
         }
     }
