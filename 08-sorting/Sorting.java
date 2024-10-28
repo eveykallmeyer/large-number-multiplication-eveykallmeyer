@@ -147,14 +147,14 @@ public class Sorting {
             
             // create the array used in the experiment
             int[] experimentArray = randomArray(size, minValue, maxValue);
-
             int[] mergeArray = Arrays.copyOf(experimentArray, experimentArray.length); // create a copy of experimentArray to sort
+            int[] insertionArray = Arrays.copyOf(experimentArray, experimentArray.length); // create a copy of experimentArray to sort
+            
             long mergeStartTime = System.nanoTime(); // log when mergeSort has begun sorting
             mergeSort(mergeArray); // execute mergeSort
             long mergeEndTime = System.nanoTime(); // log when mergeSort has finished sorting
             long mergeTime = mergeEndTime - mergeStartTime; // calculate the execution time for mergeSort
 
-            int[] insertionArray = Arrays.copyOf(experimentArray, experimentArray.length); // create a copy of experimentArray to sort
             long insertionStartTime = System.nanoTime(); // log when insertionSort has begun sorting
             insertionSort(insertionArray); // execute insertionSort
             long insertionEndTime = System.nanoTime(); // log when insertion sort has finished sorting
